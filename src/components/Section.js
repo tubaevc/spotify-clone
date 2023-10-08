@@ -48,7 +48,7 @@ function Section({ title, more = false, items }) {
                   item
                 )}`}
               ></img>
-              <button className="w-10 rounded-full bg-primary absolute bottom-2 right-2 flex items-center justify-center hidden group-hover:flex ">
+              <button className="w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 flex items-center justify-center hidden group-hover:flex ">
                 <Icon name="play" size={16}></Icon>
               </button>
             </div>

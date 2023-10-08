@@ -30,7 +30,7 @@ function Sidebar() {
               className="py-2 px-6 flex items-center bg-opacity-60 group group-hover:bg-opacity-100 text-sm text-link font-semibold hover:text-white"
             >
               <span className="w-6 h-6 flex items-center justify-center mr-4 bg-gradient-to-br from-indigo-500 to-blue-300 rounded-sm text-white bg-white ">
-                <Icon name="heart" size={12}></Icon>
+                <Icon name="heartFilled" size={12}></Icon>
               </span>
               Beğenilen Şarkılar
             </a>
