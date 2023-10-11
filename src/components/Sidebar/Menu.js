@@ -7,7 +7,6 @@ function Menu() {
       <ul className="flex flex-col">
         <li>
           <NavLink
-            activeClassName="bg-active text-white"
             exact
             to={"/"}
             className="h-10 gap-x-4 flex items-center text-sm text-link hover:text-white px-4 rounded bg-active  "
@@ -20,7 +19,6 @@ function Menu() {
         </li>
         <li>
           <NavLink
-            activeClassName="bg-active text-white"
             exact
             to={"/search"}
             className="h-10 gap-x-4 flex items-center text-sm text-link hover:text-white px-4 rounded "
@@ -33,7 +31,6 @@ function Menu() {
         </li>
         <li>
           <NavLink
-            activeClassName="bg-active text-white"
             exact
             to={"/collection"}
             className="h-10 gap-x-4 flex items-center text-sm text-link hover:text-white px-4 rounded "
