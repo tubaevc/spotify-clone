@@ -1,53 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import categories from "data/categories";
 import Title from "components/Title";
 import favourites from "data/favourites";
 import Favourites from "data/favourites";
-function Category({ category }) {
-  return (
-    <div
-      style={{ background: category.color }}
-      className=" relative rounded-md before:pt-[100%] before:block "
-    >
-      <div className="absolute inset-0 overflow-hidden">
-        <h3 className="p-4 text-2xl tracking-tighter font-semibold">
-          {category.title}
-        </h3>
-        <img
-          src={category.cover}
-          className="shadow-spotify w-[6.25rem] h-[6.25rem] rotate-[25deg] translate-x-[18%] translate-y-[2%] absolute bottom-0 right-0"
-        />
-      </div>
-    </div>
-  );
-}
-function WideCategory({ category }) {
-  return (
-    <div
-      style={{ background: category.color }}
-      className=" relative rounded-md  "
-    >
-      <div className="absolute inset-0 overflow-hidden">
-        <h3 className="p-4 text-2xl tracking-tighter font-semibold">
-          {favourites.title}
-        </h3>
-        <img
-          src={favourites.cover}
-          className="shadow-spotify w-[6.25rem] h-[6.25rem] rotate-[25deg] translate-x-[18%] translate-y-[2%] absolute bottom-0 right-0"
-        />
-      </div>
-    </div>
-  );
-}
+import ScrollContainer from "react-indiana-drag-scroll";
+import { Icon } from "Icons";
+import Category from "components/CategoryItem";
+import WideCategory from "components/WideCategoryItem";
+
 function Search() {
+  const favoritesRef = useRef();
+  const [prev, setPrev] = useState(false);
+  const [next, setNext] = useState(false);
+
+  useEffect(() => {
+    if (favoritesRef.current) {
+      const scrollHandle = () => {
+        const isEnd =
+          favoritesRef.current.scrollLeft + favoritesRef.current.offsetWidth ===
+          favoritesRef.current.scrollWidth;
+        const isBegin = favoritesRef.current.scrollLeft === 0;
+        setPrev(!isBegin);
+        setNext(!isEnd);
+      };
+
+      scrollHandle();
+      favoritesRef.current.addEventListener("scroll", scrollHandle);
+
+      return () => {
+        favoritesRef?.current?.removeEventListener("scroll", scrollHandle);
+      };
+    }
+  }, [favoritesRef]);
+
+  const slideFavoritesNext = () => {
+    favoritesRef.current.scrollLeft += favoritesRef.current.offsetWidth - 300;
+  };
+  const slideFavoritesPrev = () => {
+    favoritesRef.current.scrollLeft -= favoritesRef.current.offsetWidth - 300;
+  };
+
   return (
     <>
-      <section className="mb-4">
+      <section className="mb-8">
         <Title title="En çok dinlediğin türler" />
-        <div>
-          {favourites.map((category, index) => (
-            <WideCategory key={index} category={category} />
-          ))}
+        <div className="relative">
+          {prev && (
+            <button
+              className="w-12 absolute -left-6 hover:scale-[1.06] z-10 top-1/2 -translate-y-1/2 h-12 rounded-full bg-white text-black flex items-center justify-center"
+              onClick={slideFavoritesPrev}
+            >
+              <Icon name="prev" size={24} />
+            </button>
+          )}
+          {next && (
+            <button
+              className="w-12 absolute -right-6 hover:scale-[1.06] z-10 top-1/2 -translate-y-1/2 h-12 rounded-full bg-white text-black flex items-center justify-center"
+              onClick={slideFavoritesNext}
+            >
+              <Icon name="next" size={24} />
+            </button>
+          )}
+          <ScrollContainer
+            innerRef={favoritesRef}
+            className="flex overflow-x gap-x-6 scroll-smooth "
+          >
+            {favourites.map((category, index) => (
+              <WideCategory key={index} category={category} />
+            ))}
+          </ScrollContainer>
         </div>
       </section>
 
