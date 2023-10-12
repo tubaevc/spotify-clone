@@ -4,6 +4,7 @@ import Navigation from "./Navbar/Navigation";
 import Auth from "./Navbar/Auth";
 import { Routes, Route, useMatch } from "react-router-dom";
 import Search from "./Navbar/Search";
+import DownloadApp from "./Sidebar/DownloadApp";
 function Navbar() {
   const searchRoute = useMatch("/search");
 
@@ -11,6 +12,9 @@ function Navbar() {
     <nav className="h-[3.75rem] flex items-center justify-between px-8">
       <Navigation />
       {searchRoute && <Search />}
+
+      <DownloadApp />
+
       <Auth />
     </nav>
   );

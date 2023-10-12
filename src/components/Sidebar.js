@@ -42,7 +42,6 @@ function Sidebar() {
       </nav>
 
       <Playlists />
-      <DownloadApp></DownloadApp>
       {sidebar && <SidebarCover />}
     </aside>
   );
