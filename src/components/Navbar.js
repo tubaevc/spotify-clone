@@ -13,7 +13,7 @@ function Navbar() {
       <Navigation />
       {searchRoute && <Search />}
 
-      <DownloadApp />
+      {/* <DownloadApp /> */}
 
       <Auth />
     </nav>
